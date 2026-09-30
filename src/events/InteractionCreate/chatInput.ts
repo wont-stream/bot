@@ -3,7 +3,6 @@ import {
 	Events,
 	MessageFlags,
 } from "discord.js";
-import type { CommandClient } from "../../types/Client";
 
 export const execute = async (client: CommandClient) => {
 	client.once(Events.InteractionCreate, async (interaction) => {
