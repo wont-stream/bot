@@ -1,0 +1,22 @@
+{
+	"name": "bot",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"biome": "bunx --bun @biomejs/biome check --write --unsafe",
+		"deploy-commands": "bun run scripts/deploy-commands",
+		"waveform": "bun run scripts/waveform"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.14",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^7"
+	},
+	"dependencies": {
+		"@voctal/gamecord": "^1.1.3",
+		"discord.js": "^14.27.0"
+	}
+}
