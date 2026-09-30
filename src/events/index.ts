@@ -1,3 +1,4 @@
+import { echo } from "@atums/echo";
 import { Glob } from "bun";
 import type { Client } from "discord.js";
 
@@ -12,5 +13,6 @@ export const execute = async (client: CommandClient) => {
 		};
 
 		await execute(client);
+		echo.custom("EVENT", file.replace(".ts", "") || "", "LOADED");
 	}
 };

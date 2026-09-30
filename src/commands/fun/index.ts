@@ -1,3 +1,4 @@
+import { echo } from "@atums/echo";
 import { Glob } from "bun";
 import {
 	ApplicationIntegrationType,
@@ -38,6 +39,7 @@ for await (const file of glob.scan({ cwd: "./src/commands/fun" })) {
 	addSubcommand(data);
 
 	exe.set(file.replace(".ts", ""), execute);
+	echo.custom("COMMAND", file.replace(".ts", "") || "", "LOADED");
 }
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {

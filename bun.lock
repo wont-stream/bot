@@ -5,6 +5,7 @@
     "": {
       "name": "bot",
       "dependencies": {
+        "@atums/echo": "^2.0.3",
         "@voctal/gamecord": "^1.1.3",
         "discord.js": "^14.27.0",
       },
@@ -18,6 +19,8 @@
     },
   },
   "packages": {
+    "@atums/echo": ["@atums/echo@2.0.3", "", {}, "sha512-YxSGS+6NgyCI0QkO0I7fKVZB5E6GdY+uqH87ITvVhgs6vRuZwMIPsR2iZSUm/327zC0WDQt9xlyJqd8ytPjfnQ=="],
+
     "@biomejs/biome": ["@biomejs/biome@2.5.14", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "2.5.14", "@biomejs/cli-darwin-x64": "2.5.14", "@biomejs/cli-linux-arm64": "2.5.14", "@biomejs/cli-linux-arm64-musl": "2.5.14", "@biomejs/cli-linux-x64": "2.5.14", "@biomejs/cli-linux-x64-musl": "2.5.14", "@biomejs/cli-win32-arm64": "2.5.14", "@biomejs/cli-win32-x64": "2.5.14" }, "bin": { "biome": "bin/biome" } }, "sha512-0FabLIjd4M/dm8VFI86RMaLLdgepzbdfiAL2R8cr7V81OYYrP1w7Z73KfAwPK5h9SrEBXTzNG2y+mBwPo9xRnw=="],
 
     "@biomejs/cli-darwin-arm64": ["@biomejs/cli-darwin-arm64@2.5.14", "", { "os": "darwin", "cpu": "arm64" }, "sha512-UnzaXO65L4tsZimFITFP2M121GyhDcWFrT3pL5ZJ5U4XcS/0L5VHYytVohdCf/gnDUFHgl2I9xnt5bV/J1kxHQ=="],
