@@ -7,13 +7,8 @@ import {
 
 export const execute = async (client: CommandClient) => {
 	client.on(Events.InteractionCreate, async (interaction) => {
-		if (!interaction.isChatInputCommand())
-			return echo.custom(
-				"INTERACTION",
-				"Non chat input interaction ran",
-				interaction,
-			);
-			
+		if (!interaction.isChatInputCommand()) return;
+
 		const command = client.commands.get(interaction.commandName) as (
 			interaction: ChatInputCommandInteraction,
 		) => Promise<void>;
