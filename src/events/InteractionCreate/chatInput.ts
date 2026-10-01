@@ -5,9 +5,9 @@ import {
 } from "discord.js";
 
 export const execute = async (client: CommandClient) => {
-	client.once(Events.InteractionCreate, async (interaction) => {
-		if (!interaction.isChatInputCommand()) return;
-
+	client.on(Events.InteractionCreate, async (interaction) => {
+		if (!interaction.isChatInputCommand()) return console.log("non chat input");
+		console.log(interaction.command, Date.now())
 		const command = client.commands.get(interaction.commandName) as (
 			interaction: ChatInputCommandInteraction,
 		) => Promise<void>;
