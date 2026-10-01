@@ -4,12 +4,13 @@ import {
 	type ChatInputCommandInteraction,
 	Client,
 	Collection,
+	GatewayIntentBits,
 	type SlashCommandBuilder,
 } from "discord.js";
 import { setClient } from "./web";
 
 const client = new Client({
-	intents: [],
+	intents: [GatewayIntentBits.Guilds],
 }) as CommandClient;
 client.commands = new Collection();
 
