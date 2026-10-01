@@ -9,8 +9,7 @@ import {
 import { setClient } from "./web";
 
 const client = new Client({
-	intents: [
-	],
+	intents: [],
 }) as CommandClient;
 client.commands = new Collection();
 
