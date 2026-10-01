@@ -23,6 +23,7 @@ const rlrsk8lqtriggers = ["vroom", "goodwill"];
 
 export const execute = async (client: CommandClient) => {
 	client.on(Events.MessageCreate, async (message) => {
+		if (message.guild?.id !== process.env.TESTING_GUILD_ID) return;
 		if (
 			pbhqtriggers.some((trigger) =>
 				message.content.toLowerCase().includes(trigger),
