@@ -13,7 +13,7 @@ export const execute = async (client: CommandClient) => {
 				"Non chat input interaction ran",
 				interaction,
 			);
-		console.log(interaction.command, Date.now());
+			
 		const command = client.commands.get(interaction.commandName) as (
 			interaction: ChatInputCommandInteraction,
 		) => Promise<void>;
