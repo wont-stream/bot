@@ -37,7 +37,7 @@ for await (const file of glob.scan({ cwd: "./src/commands" })) {
 	};
 
 	if (data && execute) {
-		client.commands.set(data.name, execute);
+		client.commands.set(data.name, { data, execute });
 	}
 }
 echo.custom("COMMANDS", "Loading", "Finished");

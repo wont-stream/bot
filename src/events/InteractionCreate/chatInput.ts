@@ -1,17 +1,12 @@
 import { echo } from "@atums/echo";
-import {
-	type ChatInputCommandInteraction,
-	Events,
-	MessageFlags,
-} from "discord.js";
+import { Events, MessageFlags } from "discord.js";
 
 export const execute = async (client: CommandClient) => {
 	client.on(Events.InteractionCreate, async (interaction) => {
 		if (!interaction.isChatInputCommand()) return;
 
-		const command = client.commands.get(interaction.commandName) as (
-			interaction: ChatInputCommandInteraction,
-		) => Promise<void>;
+		const command = client.commands.get(interaction.commandName)?.execute;
+
 		if (!command) {
 			return echo.custom("INTERACTION", "Command not found", {
 				interaction,

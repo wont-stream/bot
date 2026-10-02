@@ -1,7 +1,18 @@
-import type { Client, Collection } from "discord.js";
+import type {
+	ChatInputCommandInteraction,
+	Client,
+	Collection,
+	SlashCommandBuilder,
+} from "discord.js";
 
 declare global {
 	type CommandClient = Client & {
-		commands: Collection<string, unknown>;
+		commands: Collection<
+			string,
+			{
+				data: SlashCommandBuilder;
+				execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
+			}
+		>;
 	};
 }

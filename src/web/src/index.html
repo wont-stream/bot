@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>unstablereleasechannel</title>
+  <link rel="stylesheet" href="./index.css">
+  <script type="module" src="./index.ts"></script>
+</head>
+<body>
+  <main>
+    <header class="bot">
+      <img id="avatar" alt="" width="96" height="96">
+      <div>
+        <h1 id="name">Loading…</h1>
+        <br />
+         <a id="invite" class="button" href="#invite" hidden>Invite bot</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Stats</h2>
+      <div id="stats" class="stats"></div>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <dl id="details"></dl>
+    </section>
+
+    <section id="error" hidden>
+      <h2>Bot unreachable</h2>
+      <p>The page cannot load <code>/api/user</code>. Check that the bot process runs.</p>
+    </section>
+  </main>
+</body>
+</html>
