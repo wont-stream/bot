@@ -1,42 +1,30 @@
-import { Events } from "discord.js";
+import { ActivityType, Events } from "discord.js";
 
-let currentDisplay: "users" | "servers" | "shards" = "users";
+let currentDisplay = 0;
 
-export const execute = async (client: CommandClient) => {
-	client.on(Events.ClientReady, async () => {
-		setInterval(() => {
-			const serverCount = client.guilds.cache.size;
-			const userCount = client.guilds.cache.reduce(
-				(total, guild) => total + guild.memberCount,
-				0,
-			);
+const updateActivity = (client: CommandClient) => {
+	const serverCount = client.guilds.cache.size;
+	const userCount = client.guilds.cache.reduce(
+		(total, guild) => total + guild.memberCount,
+		0,
+	);
 
-			switch (currentDisplay) {
-				case "users":
-					{
-						client.user?.setActivity(`${serverCount} servers`, {
-							type: 3,
-						});
-						currentDisplay = "servers";
-					}
-					break;
-				case "servers":
-					{
-						client.user?.setActivity(`${userCount} users`, {
-							type: 3,
-						});
-						currentDisplay = "shards";
-					}
-					break;
-				case "shards":
-					{
-						client.user?.setActivity(`${client.shard?.count} shards`, {
-							type: 3,
-						});
-						currentDisplay = "users";
-					}
-					break;
-			}
-		}, 60_000);
+	const activities = [
+		`${userCount} users`,
+		`${serverCount} servers`,
+		`${client.shard?.count ?? 1} shards`,
+	];
+
+	client.user?.setActivity(activities[currentDisplay] || "", {
+		type: ActivityType.Watching,
+	});
+
+	currentDisplay = (currentDisplay + 1) % activities.length;
+};
+
+export const execute = (client: CommandClient) => {
+	client.once(Events.ClientReady, () => {
+		updateActivity(client);
+		setInterval(updateActivity, 30_000);
 	});
 };
