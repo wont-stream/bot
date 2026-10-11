@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 
-let currentDisplay: "users" | "servers" = "users";
+let currentDisplay: "users" | "servers" | "shards" = "users";
 
 export const execute = async (client: CommandClient) => {
 	client.on(Events.ClientReady, async () => {
@@ -23,6 +23,14 @@ export const execute = async (client: CommandClient) => {
 				case "servers":
 					{
 						client.user?.setActivity(`${userCount} users`, {
+							type: 3,
+						});
+						currentDisplay = "shards";
+					}
+					break;
+				case "shards":
+					{
+						client.user?.setActivity(`${client.shard?.count} shards`, {
 							type: 3,
 						});
 						currentDisplay = "users";
