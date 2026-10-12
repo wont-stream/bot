@@ -50,7 +50,7 @@ Bun.serve({
 				}),
 			});
 		},
-		"/api/ok": new Response()
+		"/api/ok": new Response(),
 	},
 
 	development: process.env.NODE_ENV !== "production" && {
