@@ -5,44 +5,12 @@ import {
 	Client,
 	Collection,
 	GatewayIntentBits,
-	Options,
 	type SlashCommandBuilder,
 } from "discord.js";
 import { setClient } from "./web";
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
-	makeCache: Options.cacheWithLimits({
-		ApplicationCommandManager: 0,
-		ApplicationEmojiManager: 0,
-		AutoModerationRuleManager: 0,
-		BaseGuildEmojiManager: 0,
-		// TODO: ChannelManager: 0,
-		DMMessageManager: 0,
-		EntitlementManager: 0,
-		GuildBanManager: 0,
-		// TODO: GuildChannelManager: 0,
-		GuildEmojiManager: 0,
-		GuildForumThreadManager: 0,
-		GuildInviteManager: 0,
-		// TODO: GuildManager: 0,
-		GuildMemberManager: 0,
-		GuildMessageManager: 0,
-		GuildScheduledEventManager: 0,
-		GuildStickerManager: 0,
-		GuildTextThreadManager: 0,
-		MessageManager: 0,
-		// TODO: PermissionOverwriteManager: 0,
-		PresenceManager: 0,
-		ReactionManager: 0,
-		ReactionUserManager: 0,
-		// TODO: RoleManager: 0,
-		StageInstanceManager: 0,
-		ThreadManager: 0,
-		ThreadMemberManager: 0,
-		UserManager: 0,
-		VoiceStateManager: 0,
-	}),
 }) as CommandClient;
 client.commands = new Collection();
 
