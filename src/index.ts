@@ -46,4 +46,4 @@ echo.custom("BOT", "Login", "Started");
 await client.login(process.env.DISCORD_TOKEN);
 echo.custom("BOT", "Login", "Finished");
 
-process.on("uncaughtException", echo.error);
+process.on("uncaughtException", (e) => echo.error(e));

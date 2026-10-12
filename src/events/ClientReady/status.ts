@@ -25,6 +25,6 @@ const updateActivity = (client: CommandClient) => {
 export const execute = (client: CommandClient) => {
 	client.once(Events.ClientReady, () => {
 		updateActivity(client);
-		setInterval(updateActivity, 30_000);
+		setInterval(() => updateActivity(client), 30_000);
 	});
 };
