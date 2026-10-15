@@ -30,7 +30,7 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	if (!interaction.inGuild()) {
 		return interaction.reply({
-			content: "This command only works in servers.",
+			content: "-# This command only works in servers.",
 			ephemeral: true,
 		});
 	}
