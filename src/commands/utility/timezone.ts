@@ -1,8 +1,8 @@
 import {
-    EmbedBuilder,
-	userMention,
 	type ChatInputCommandInteraction,
+	EmbedBuilder,
 	type SlashCommandBuilder,
+	userMention,
 } from "discord.js";
 
 const getTimezoneTimestamps = (timeZone: string) => {
@@ -38,8 +38,7 @@ const getTimezoneTimestamps = (timeZone: string) => {
 
 	if (match) {
 		const [, sign, hours, minutes] = match;
-		const offsetMs =
-			(Number(hours) * 60 + Number(minutes)) * 60_000;
+		const offsetMs = (Number(hours) * 60 + Number(minutes)) * 60_000;
 
 		midnight -= sign === "+" ? offsetMs : -offsetMs;
 	}
@@ -48,29 +47,41 @@ const getTimezoneTimestamps = (timeZone: string) => {
 		midnight: `<t:${Math.floor(midnight / 1000)}:t>`,
 		current: `<t:${Math.floor(now.getTime() / 1000)}:t>`,
 	};
-}
+};
 
-type TimezoneResponse = { user?: { id: string, username: string }, timezone: string, message?: string }
+type TimezoneResponse = {
+	user?: { id: string; username: string };
+	timezone: string;
+	message?: string;
+};
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
-		cmd.setName("timezone").setDescription("Check someones timezone.").addUserOption((option) =>
-			option
-				.setName("user")
-				.setDescription("The user whose timezone you want to check.")
-				.setRequired(true),
-		),
+		cmd
+			.setName("timezone")
+			.setDescription("Check someones timezone.")
+			.addUserOption((option) =>
+				option
+					.setName("user")
+					.setDescription("The user whose timezone you want to check.")
+					.setRequired(true),
+			),
 	);
 };
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const user = interaction.options.getUser("user", true);
 
-	await interaction.deferReply()
+	await interaction.deferReply();
 
-	const req = await fetch(`https://timezone.creations.works/v1/get?id=${user.id}`)
-	const res = await req.json() as TimezoneResponse;
+	const req = await fetch(
+		`https://timezone.creations.works/v1/get?id=${user.id}`,
+	);
+	const res = (await req.json()) as TimezoneResponse;
 
-	if (res?.message || !res?.user) return interaction.editReply({ content: `${userMention(user.id)} isn't setup with TimezoneDB, tell them to signup and set their timezone!\n<https://timezone.creations.works/v1/auth/discord?redirect=/>` })
+	if (res?.message || !res?.user)
+		return interaction.editReply({
+			content: `${userMention(user.id)} isn't setup with TimezoneDB, tell them to signup and set their timezone!\n<https://timezone.creations.works/v1/auth/discord?redirect=/>`,
+		});
 
 	const timestmaps = getTimezoneTimestamps(res.timezone);
 
@@ -81,17 +92,17 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			{
 				name: "Timezone",
 				value: res.timezone,
-				inline: true
+				inline: true,
 			},
 			{
-				name: Midnight,
+				name: "Midnight",
 				value: timestmaps.midnight,
-				inline: true
+				inline: true,
 			},
 			{
 				name: "Current Time",
 				value: timestmaps.current,
-				inline: true
+				inline: true,
 			},
 		)
 		.setThumbnail(user.avatarURL())
@@ -101,5 +112,5 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		})
 		.setTimestamp();
 
-	await interaction.editReply({ embeds: [embed] })
+	await interaction.editReply({ embeds: [embed] });
 };
