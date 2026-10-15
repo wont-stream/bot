@@ -18,19 +18,19 @@ export const getAuth = () => {
 };
 
 export const getToken = async (code: string) => {
-  const res = await fetch("https://auth.riotgames.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: RIOT_CLIENT_ID,
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: REDIRECT_URI,
-    }).toString(),
-  });
-  if (!res.ok) throw new Error(`Token exchange failed: ${res.status}`);
-  return res.json() as Promise<{ access_token: string; id_token: string }>;
-}
+	const res = await fetch("https://auth.riotgames.com/token", {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded" },
+		body: new URLSearchParams({
+			client_id: RIOT_CLIENT_ID,
+			grant_type: "authorization_code",
+			code,
+			redirect_uri: REDIRECT_URI,
+		}).toString(),
+	});
+	if (!res.ok) throw new Error(`Token exchange failed: ${res.status}`);
+	return res.json() as Promise<{ access_token: string; id_token: string }>;
+};
 
 export const getUsername = async (accessToken: string) => {
 	const res = await fetch(
