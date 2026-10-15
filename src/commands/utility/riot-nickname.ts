@@ -28,6 +28,13 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 };
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
+	if (!interaction.inGuild()) {
+		return interaction.reply({
+			content: "This command only works in servers.",
+			ephemeral: true,
+		});
+	}
+
 	const link = interaction.options.getString("copied-link", false);
 	if (!link) {
 		const auth = getAuth();
