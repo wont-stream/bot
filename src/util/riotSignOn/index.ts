@@ -29,33 +29,25 @@ export const getToken = async (code: string) => {
 		}).toString(),
 	});
 	if (!res.ok) throw new Error(`Token exchange failed: ${res.status}`);
-	return res.json() as Promise<{ access_token: string; id_token: string }>;
+	return res.json() as Promise<{ id_token: string }>;
 };
 
-export const getUsername = async (accessToken: string) => {
-	const res = await fetch(
-		"https://americas.api.riotgames.com/riot/account/v1/accounts/me",
-		{
-			headers: { Authorization: `Bearer ${accessToken}` },
-		},
-	);
-	if (!res.ok) throw new Error(`Account lookup failed: ${res.status}`);
-	const data = (await res.json()) as { gameName: string; tagLine: string };
-	return `${data.gameName}#${data.tagLine}`;
-};
-
-const decodeIdToken = (
-	idToken: string,
-): { nonce: string; sub: string; [key: string]: unknown } => {
-	const payload = idToken.split(".")[1];
-	if (!payload) throw new Error("Incorrect payload");
-	const json = Buffer.from(payload, "base64url").toString("utf8");
-	return JSON.parse(json);
-};
+function decodeIdToken(idToken: string): { nonce: string; acct?: { game_name: string; tag_line: string }; [key: string]: unknown } {
+  const payload = idToken.split(".")[1];
+  if (!payload) throw new Error("Incorrect payload");
+  const json = Buffer.from(payload, "base64url").toString("utf8");
+  return JSON.parse(json);
+}
 
 export const verifyNonce = (idToken: string, expectedNonce: string) => {
-	const claims = decodeIdToken(idToken);
-	if (claims.nonce !== expectedNonce) {
-		throw new Error("Nonce mismatch — possible replay attack.");
-	}
-};
+  const claims = decodeIdToken(idToken);
+  if (claims.nonce !== expectedNonce) {
+    throw new Error("Nonce mismatch — possible replay attack.");
+  }
+}
+
+export const getUsername = (idToken: string): string => {
+  const claims = decodeIdToken(idToken);
+  if (!claims.acct) throw new Error("No account info in id_token.");
+  return `${claims.acct.game_name}#${claims.acct.tag_line}`;
+}

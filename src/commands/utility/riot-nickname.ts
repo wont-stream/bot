@@ -67,16 +67,20 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 	try {
-		const { access_token, id_token } = await getToken(code);
+		const { id_token } = await getToken(code);
 		verifyNonce(id_token, expectedNonce as string);
 
-		const riotTag = await getUsername(access_token);
+		const riotTag = getUsername(id_token);
 
 		const member = interaction.guild?.members.cache.get(interaction.user.id);
 		if (!member) {
 			return await interaction.editReply({
 				content: "Couldn't find you in this server to rename.",
 			});
+		}
+
+		if (!member.manageable) {
+			return await interaction.editReply({ content: "I can't change your nickname!\n Check my role position/permissions, or you may be the server owner." });
 		}
 
 		await member.setNickname(riotTag, "Linked to Riot Account");
