@@ -49,17 +49,14 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			{
 				name: "Timezone",
 				value: res.timezone,
-				inline: true,
 			},
 			{
 				name: "Midnight",
 				value: timestmaps.midnight,
-				inline: true,
 			},
 			{
 				name: "Current Time",
 				value: timestmaps.current,
-				inline: true,
 			},
 		)
 		.setThumbnail(user.avatarURL())
