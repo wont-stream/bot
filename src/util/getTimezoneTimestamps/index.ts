@@ -24,7 +24,6 @@ export const getTimezoneTimestamps = (timeZone: string) => {
 		weekday: "short",
 		hour: "numeric",
 		minute: "2-digit",
-		timeZoneName: "short",
 	}).format(now);
 
 	return {
