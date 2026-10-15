@@ -61,8 +61,7 @@ function renderStats(stats: BotStats) {
 	const items: [string, number][] = [
 		["Servers", stats.guilds],
 		["Users", stats.users],
-		["Commands", stats.commands],
-		["Subcommands", stats.subcommands],
+		["Commands", stats.subcommands],
 	];
 	$("stats").replaceChildren(
 		...items.map(([label, value]) => {
