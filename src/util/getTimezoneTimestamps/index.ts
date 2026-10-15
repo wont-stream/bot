@@ -36,8 +36,15 @@ export const getTimezoneTimestamps = (timeZone: string) => {
 		midnight -= sign === "+" ? offsetMs : -offsetMs;
 	}
 
+	const current = new Intl.DateTimeFormat("en-US", {
+		timeZone,
+		hour: "numeric",
+		minute: "2-digit",
+		timeZoneName: "short",
+	}).format(now);
+
 	return {
 		midnight: `<t:${Math.floor(midnight / 1000)}:t>`,
-		current: `<t:${Math.floor(now.getTime() / 1000)}:t>`,
+		current,
 	};
 };
