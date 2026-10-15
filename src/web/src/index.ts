@@ -2,7 +2,7 @@ import type { ClientUser } from "discord.js";
 
 /** Fetch JSON from the bot API. Add new endpoints by calling api<T>("/api/...") . */
 async function api<T>(path: string): Promise<T> {
-	const res = await fetch(path);
+	const res = await fetch(`${path}?t=${Date.now()}`);
 	if (!res.ok) throw new Error(`${path} returned ${res.status}`);
 	return res.json() as Promise<T>;
 }
