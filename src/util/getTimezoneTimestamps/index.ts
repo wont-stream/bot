@@ -16,8 +16,7 @@ export const getTimezoneTimestamps = (timeZone: string) => {
 	const secondsSinceMidnight =
 		(parts.hour ?? 0) * 3600 + (parts.minute ?? 0) * 60 + (parts.second ?? 0);
 
-	const midnightUnix =
-		Math.floor(now.getTime() / 1000) - secondsSinceMidnight;
+	const midnightUnix = Math.floor(now.getTime() / 1000) - secondsSinceMidnight;
 
 	const current = new Intl.DateTimeFormat("en-US", {
 		timeZone,

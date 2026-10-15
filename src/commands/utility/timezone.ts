@@ -53,12 +53,12 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			{
 				name: "Midnight",
 				value: timestmaps.midnight,
-				inline: true
+				inline: true,
 			},
 			{
 				name: "Current Time",
 				value: timestmaps.current,
-				inline: true
+				inline: true,
 			},
 		)
 		.setThumbnail(user.avatarURL())
