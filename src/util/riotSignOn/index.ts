@@ -32,22 +32,26 @@ export const getToken = async (code: string) => {
 	return res.json() as Promise<{ id_token: string }>;
 };
 
-function decodeIdToken(idToken: string): { nonce: string; acct?: { game_name: string; tag_line: string }; [key: string]: unknown } {
-  const payload = idToken.split(".")[1];
-  if (!payload) throw new Error("Incorrect payload");
-  const json = Buffer.from(payload, "base64url").toString("utf8");
-  return JSON.parse(json);
+function decodeIdToken(idToken: string): {
+	nonce: string;
+	acct?: { game_name: string; tag_line: string };
+	[key: string]: unknown;
+} {
+	const payload = idToken.split(".")[1];
+	if (!payload) throw new Error("Incorrect payload");
+	const json = Buffer.from(payload, "base64url").toString("utf8");
+	return JSON.parse(json);
 }
 
 export const verifyNonce = (idToken: string, expectedNonce: string) => {
-  const claims = decodeIdToken(idToken);
-  if (claims.nonce !== expectedNonce) {
-    throw new Error("Nonce mismatch — possible replay attack.");
-  }
-}
+	const claims = decodeIdToken(idToken);
+	if (claims.nonce !== expectedNonce) {
+		throw new Error("Nonce mismatch — possible replay attack.");
+	}
+};
 
 export const getUsername = (idToken: string): string => {
-  const claims = decodeIdToken(idToken);
-  if (!claims.acct) throw new Error("No account info in id_token.");
-  return `${claims.acct.game_name}#${claims.acct.tag_line}`;
-}
+	const claims = decodeIdToken(idToken);
+	if (!claims.acct) throw new Error("No account info in id_token.");
+	return `${claims.acct.game_name}#${claims.acct.tag_line}`;
+};

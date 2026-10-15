@@ -80,7 +80,10 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		}
 
 		if (!member.manageable) {
-			return await interaction.editReply({ content: "I can't change your nickname!\n Check my role position/permissions, or you may be the server owner." });
+			return await interaction.editReply({
+				content:
+					"I can't change your nickname!\n Check my role position/permissions, or you may be the server owner.",
+			});
 		}
 
 		await member.setNickname(riotTag, "Linked to Riot Account");
