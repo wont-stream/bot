@@ -108,7 +108,8 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		.setThumbnail(user.avatarURL())
 		.setFooter({
 			text: "Powered by TimezoneDB",
-			iconURL: "https://wsrv.nl/?url=https://timezone.creations.works/favicon.ico&output=webp",
+			iconURL:
+				"https://wsrv.nl/?url=https://timezone.creations.works/favicon.ico&output=webp",
 		})
 		.setTimestamp();
 
