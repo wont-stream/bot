@@ -12,7 +12,7 @@ const updateActivity = (client: CommandClient) => {
 	const activities = [
 		`${userCount} users`,
 		`${serverCount} servers`,
-		`${client.shard?.count ?? 1} shards`,
+		//`${client.shard?.count ?? 1} shards`,
 	];
 
 	client.user?.setActivity(activities[currentDisplay] || "", {
