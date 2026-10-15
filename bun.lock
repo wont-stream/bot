@@ -7,6 +7,7 @@
       "dependencies": {
         "@atums/echo": "^2.0.3",
         "@voctal/gamecord": "^1.1.3",
+        "bun-cache": "^2.0.0",
         "discord.js": "^14.27.0",
       },
       "devDependencies": {
@@ -130,6 +131,8 @@
     "@vladfrangu/async_event_emitter": ["@vladfrangu/async_event_emitter@2.4.7", "", {}, "sha512-Xfe6rpCTxSxfbswi/W/Pz7zp1WWSNn4A0eW4mLkQUewCrXXtMj31lCg+iQyTkh/CkusZSq9eDflu7tjEDXUY6g=="],
 
     "@voctal/gamecord": ["@voctal/gamecord@1.1.3", "", { "dependencies": { "@napi-rs/canvas": "^0.1.97", "zod": "^4.3.6" }, "peerDependencies": { "discord.js": "^14.26.0" } }, "sha512-ma9XrBf8F5jPXDKY2bYoaBQgLLtJxifKiJ1RcQMKy/TuoDV5jZxJcjrJ4a/YA0INBGtyNZq0bhid2xdfMXsVcQ=="],
+
+    "bun-cache": ["bun-cache@2.0.0", "", { "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-GGkgPN2BBP+vmUCZnsdyAupUdi3XQCpf/DfxO4eODTc1dNs+HLPTIhRsnhRy9XUT1QXpmIOqEXE+ORqQAaQnwQ=="],
 
     "bun-types": ["bun-types@1.4.3", "", { "dependencies": { "@types/node": "*", "undici-types": "*" } }, "sha512-tinRJNGOmUN+tEAsn2y2e942n9JHRHR42iUYzDH75NmhJqVBokGSQkkfSFdNWwsANIdrK6ACH9t01M452YyTwg=="],
 
