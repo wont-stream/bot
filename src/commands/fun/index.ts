@@ -5,6 +5,7 @@ import {
 	type ChatInputCommandInteraction,
 	Collection,
 	InteractionContextType,
+	MessageFlags,
 	SlashCommandBuilder,
 } from "discord.js";
 
@@ -44,7 +45,11 @@ for await (const file of glob.scan({ cwd: "./src/commands/fun" })) {
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const execute = exe.get(interaction.options.getSubcommand());
-	if (!execute) return interaction.reply("Something went wrong!");
+	if (!execute)
+		return interaction.reply({
+			content: "Something went wrong!",
+			flags: MessageFlags.Ephemeral,
+		});
 
 	return await execute(interaction);
 };
