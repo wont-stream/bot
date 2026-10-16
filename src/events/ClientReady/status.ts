@@ -10,8 +10,8 @@ const updateActivity = (client: CommandClient) => {
 	);
 
 	const activities = [
-		`${userCount} users`,
-		`${serverCount} servers`,
+		`${userCount.toLocaleString("de-DE")} users`,
+		`${serverCount.toLocaleString("de-DE")} servers`,
 		//`${client.shard?.count ?? 1} shards`,
 	];
 
