@@ -94,7 +94,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	if (!expectedNonce) {
 		embed
 			.setDescription(
-				"No pending login found.\nRun this command again without the link option first.",
+				["No pending login found.","Run this command again without the link option first."].join("\n")
 			)
 			.setColor("#800000");
 		return await interaction.reply({
