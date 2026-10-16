@@ -24,7 +24,7 @@ export const data = new SlashCommandBuilder()
 
 const glob = new Glob("**/*.ts");
 
-const exe: Collection<
+const exec: Collection<
 	string,
 	(interaction: ChatInputCommandInteraction) => Promise<void>
 > = new Collection();
@@ -39,12 +39,12 @@ for await (const file of glob.scan({ cwd: "./src/commands/fun" })) {
 
 	addSubcommand(data);
 
-	exe.set(file.replace(".ts", ""), execute);
+	exec.set(file.replace(".ts", ""), execute);
 	echo.custom("COMMAND", file.replace(".ts", "") || "", "LOADED");
 }
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
-	const execute = exe.get(interaction.options.getSubcommand());
+	const execute = exec.get(interaction.options.getSubcommand());
 	if (!execute)
 		return interaction.reply({
 			content: "Something went wrong!",
