@@ -1,6 +1,6 @@
 import {
-	EmbedBuilder,
 	type ChatInputCommandInteraction,
+	EmbedBuilder,
 	type SlashCommandBuilder,
 } from "discord.js";
 import { getResp } from "../../util/8ball";
@@ -31,6 +31,6 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		.setTimestamp();
 
 	return await interaction.reply({
-		embeds: [embed]
+		embeds: [embed],
 	});
 };

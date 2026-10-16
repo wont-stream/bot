@@ -64,8 +64,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		.setThumbnail(user.avatarURL())
 		.setFooter({
 			text: "Powered by TimezoneDB",
-			iconURL:
-				"https://heliopolis.live/atums.png",
+			iconURL: "https://heliopolis.live/atums.png",
 		})
 		.setTimestamp();
 
