@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	EmbedBuilder,
 	type InteractionReplyOptions,
 	MessageFlags,
 	type SlashCommandBuilder,
@@ -12,6 +13,10 @@ const choices = [
 	{ name: "Rollerskate HQ", value: "rlrsk8hq" },
 	{ name: "Rollerskate LQ", value: "rlrsk8lq" },
 ];
+
+const error = new EmbedBuilder().setDescription(
+	"-# Invalid Option",
+);
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
@@ -35,7 +40,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 	if (!Versions.includes(version)) {
 		return interaction.reply({
-			content: "Invalid Pink Blush version.",
+			embeds: [error],
 			flags: MessageFlags.Ephemeral,
 		});
 	}

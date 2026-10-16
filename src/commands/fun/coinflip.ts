@@ -1,6 +1,7 @@
-import type {
-	ChatInputCommandInteraction,
-	SlashCommandBuilder,
+import {
+    EmbedBuilder,
+	type ChatInputCommandInteraction,
+	type SlashCommandBuilder,
 } from "discord.js";
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
@@ -9,7 +10,11 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 	);
 };
 export const execute = async (interaction: ChatInputCommandInteraction) => {
+	const embed = new EmbedBuilder()
+  .setDescription(`🪙 **${Math.round(Math.random()) ? "It's heads" : "It's tails"}**`)
+  .setColor("#ffff00");
+
 	return await interaction.reply({
-		content: `🪙 **${Math.round(Math.random()) ? "It's heads" : "It's tails"}**`,
+		embeds: [embed]
 	});
 };
