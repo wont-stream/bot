@@ -14,6 +14,7 @@ interface BotStats {
 	commands: number;
 	subcommands: number;
 	inviteUrl: string;
+	uptime: string;
 }
 
 const $ = <T extends HTMLElement>(id: string) =>
@@ -34,10 +35,11 @@ function setStatus(state: "online" | "offline") {
 	el.textContent = state === "online" ? "Online" : "Offline";
 }
 
-function renderDetails(user: ClientUser) {
+function renderDetails(user: ClientUser, stats: BotStats) {
 	const rows: [string, string][] = [
+		["Uptime", stats.uptime],
 		["ID", user.id],
-		["Username", user.username],
+		["Username", `${user.username}%`],
 	];
 	if (user.createdTimestamp) {
 		rows.push([
@@ -81,22 +83,17 @@ function renderStats(stats: BotStats) {
 }
 
 async function init() {
-	try {
 		const user = await api<ClientUser>("/api/user");
+		const stats = await api<BotStats>("/api/stats");
+
 		const name = user.globalName ?? user.username;
 		document.title = name;
 		$("name").textContent = name;
 		const img = $<HTMLImageElement>("avatar");
 		img.src = avatarUrl(user);
 		img.alt = `${name} avatar`;
-		renderDetails(user);
-		renderStats(await api<BotStats>("/api/stats"));
-	} catch (err) {
-		console.error(err);
-		$("name").textContent = "Bot";
-		setStatus("offline");
-		$("error").hidden = false;
-	}
+		renderDetails(user, stats);
+		renderStats(stats);
 }
 
 init();
