@@ -8,6 +8,7 @@ import {
 	MessageFlags,
 	SlashCommandBuilder,
 } from "discord.js";
+import { somethingWentWrong } from "../../util/errors/generic";
 
 export const data = new SlashCommandBuilder()
 	.setName("utility")
@@ -47,7 +48,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const execute = exec.get(interaction.options.getSubcommand());
 	if (!execute)
 		return interaction.reply({
-			content: "Something went wrong!",
+			embeds: [somethingWentWrong],
 			flags: MessageFlags.Ephemeral,
 		});
 
