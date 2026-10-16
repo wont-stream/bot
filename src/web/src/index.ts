@@ -1,5 +1,3 @@
-import type { ClientUser } from "discord.js";
-
 /** Fetch JSON from the bot API. Add new endpoints by calling api<T>("/api/...") . */
 async function api<T>(path: string): Promise<T> {
 	const res = await fetch(`${path}?t=${Date.now()}`);
@@ -20,23 +18,11 @@ interface BotStats {
 const $ = <T extends HTMLElement>(id: string) =>
 	document.getElementById(id) as T;
 
-function _avatarUrl(user: ClientUser): string {
-	if (user.avatar) {
-		const ext = user.avatar.startsWith("a_") ? "gif" : "png";
-		return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-	}
-	const index = Number((BigInt(user.id) >> 22n) % 6n);
-	return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
-}
-
-function _setStatus(state: "online" | "offline") {
-	const el = $("status");
-	el.dataset.state = state;
-	el.textContent = state === "online" ? "Online" : "Offline";
-}
 
 function renderDetails(stats: BotStats) {
-	const rows: [string, string][] = [["Uptime", `${stats.uptime}%`]];
+	const rows: [string, string][] = [
+		["Uptime", `${stats.uptime}%`],
+	];
 
 	const dl = $("details");
 	dl.replaceChildren(
@@ -51,10 +37,10 @@ function renderDetails(stats: BotStats) {
 }
 
 function renderStats(stats: BotStats) {
-	const items: [string, number][] = [
-		["Servers", stats.guilds],
-		["Users", stats.users],
-		["Commands", stats.subcommands],
+	const items: [string, string][] = [
+		["Servers", stats.guilds.toLocaleString()],
+		["Users", stats.users.toLocaleString()],
+		["Commands", stats.subcommands.toLocaleString()],
 	];
 	$("stats").replaceChildren(
 		...items.map(([label, value]) => {
@@ -62,7 +48,7 @@ function renderStats(stats: BotStats) {
 			const num = document.createElement("b");
 			const text = document.createElement("span");
 			box.className = "stat";
-			num.textContent = value.toLocaleString();
+			num.textContent = value;
 			text.textContent = label;
 			box.append(num, text);
 			return box;
