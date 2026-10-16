@@ -1,5 +1,9 @@
 import { echo } from "@atums/echo";
-import { ApplicationCommandOptionType, OAuth2Scopes } from "discord.js";
+import {
+	ApplicationCommandOptionType,
+	OAuth2Scopes,
+	PermissionFlagsBits,
+} from "discord.js";
 import html from "./src/index.html";
 
 let client: CommandClient | null = null;
@@ -37,6 +41,12 @@ Bun.serve({
 			const middlewareResult = middleware();
 			if (middlewareResult) return middlewareResult;
 
+			const req = await fetch("https://status.ipv4.army/sections");
+			const status = await req.text();
+
+			const section = status.split("Discord Bot")[1] ?? "";
+			const uptime = section.match(/(\d+(?:\.\d+)?)%/)?.[1] ?? "?";
+
 			return Response.json({
 				guilds: client?.guilds.cache.size,
 				users: client?.guilds.cache.reduce(
@@ -47,7 +57,14 @@ Bun.serve({
 				subcommands: countSubcommands(),
 				inviteUrl: client?.generateInvite({
 					scopes: [OAuth2Scopes.Bot, OAuth2Scopes.ApplicationsCommands],
+					permissions: [
+						PermissionFlagsBits.SendMessages,
+						PermissionFlagsBits.SendVoiceMessages,
+						PermissionFlagsBits.AttachFiles,
+						PermissionFlagsBits.ManageNicknames,
+					],
 				}),
+				uptime,
 			});
 		},
 		"/api/ok": new Response(),
