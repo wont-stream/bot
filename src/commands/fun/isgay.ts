@@ -20,20 +20,23 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const user = interaction.options.getUser("user", true);
 
-	const embed = new EmbedBuilder()
-		.setColor("#00ffb2");
+	const embed = new EmbedBuilder().setColor("#00ffb2");
 
 	if (user.id === "1383584342105919559") {
-		embed.setDescription("Oh please, you don't even need to ask.").setFooter({ text: "🏳️‍🌈🏳️‍🌈🏳️‍🌈" })
-		
+		embed
+			.setDescription("Oh please, you don't even need to ask.")
+			.setFooter({ text: "🏳️‍🌈🏳️‍🌈🏳️‍🌈" });
+
 		return await interaction.reply({
-			embeds: [embed]
+			embeds: [embed],
 		});
 	}
 
-	embed.setDescription(`🏳️‍🌈 ${userMention(user.id)} is **${Math.round(Number.parseFloat(`0.${user.id}`)) ? "gay" : "not gay"}**.`)
-	
+	embed.setDescription(
+		`🏳️‍🌈 ${userMention(user.id)} is **${Math.round(Number.parseFloat(`0.${user.id}`)) ? "gay" : "not gay"}**.`,
+	);
+
 	return await interaction.reply({
-		embeds: [embed]
+		embeds: [embed],
 	});
 };

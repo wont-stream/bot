@@ -14,9 +14,7 @@ const choices = [
 	{ name: "Rollerskate LQ", value: "rlrsk8lq" },
 ];
 
-const error = new EmbedBuilder().setDescription(
-	"-# Invalid Option",
-);
+const error = new EmbedBuilder().setDescription("-# Invalid Option");
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
