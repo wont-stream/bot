@@ -44,7 +44,21 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		const auth = getAuth();
 		nonces.put(interaction.user.id, auth.nonce, 125_000); // grace period for latency or anything else
 		embed.setDescription(
-			`This expires <t:${Math.floor(Date.now() / 1000) + 120}:R>\nYou will have to retry if you can't complete it in time.\n\n1. Open the [login page](${auth.url}).\n2. Login to your Riot Account.\n3. Copy the link you were sent to. **It will look like an error page but that is ok!**\n4. Rerun this command, and set the copied-link option to the link you copied.\n5. Done!\n\n-# We do ***NOT*** store any data. \n-# You will need to redo this if you change your Riot username or tag.`,
+			[
+				`This expires <t:${Math.floor(Date.now() / 1000) + 120}:R>`,
+				"You will have to retry if you can't complete it in time.",
+				"",
+				"",
+				`1. Open the [login page](${auth.url}).`,
+				"2. Login to your Riot Account.",
+				"3. Copy the link you were sent to. **It will look like an error page but that is ok!**",
+				"4. Rerun this command, and set the copied-link option to the link you copied.",
+				"5. Done!",
+				"",
+				"",
+				"-# We do ***NOT*** store any data.",
+				"-# You will need to redo this if you change your Riot username or tag.",
+			].join("\n"),
 		);
 		return await interaction.reply({
 			embeds: [embed],

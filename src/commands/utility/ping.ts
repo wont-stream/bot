@@ -11,11 +11,8 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 	);
 };
 export const execute = async (interaction: ChatInputCommandInteraction) => {
-	
-	const embed = new EmbedBuilder()
-	.setDescription("🏓 Pinging...")
+	const embed = new EmbedBuilder().setDescription("🏓 Pinging...");
 
-	
 	const start = Date.now();
 
 	await interaction.reply({
@@ -25,12 +22,14 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 	const latency = Date.now() - start;
 
-	embed.setDescription([
+	embed.setDescription(
+		[
 			"🏓 **Pong!**",
 			"",
 			`**API:** ${latency}ms`,
 			`**WebSocket:** ${interaction.client.ws.ping}ms`,
-		].join("\n"))
+		].join("\n"),
+	);
 
 	await interaction.editReply({
 		embeds: [embed],
