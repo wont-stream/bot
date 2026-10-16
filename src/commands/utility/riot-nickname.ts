@@ -119,7 +119,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		}
 
 		await member.setNickname(riotTag, "Linked to Riot Account");
-		embed.setDescription(`Nickname set to \`${riotTag}\`.`).setColor("#800000");
+		embed.setDescription(`Nickname set to \`${riotTag}\`.`);
 		await interaction.editReply({ embeds: [embed] });
 	} catch (err) {
 		embed
