@@ -1,6 +1,7 @@
 import { BunCache } from "bun-cache";
 import {
 	type ChatInputCommandInteraction,
+	EmbedBuilder,
 	MessageFlags,
 	type SlashCommandBuilder,
 } from "discord.js";
@@ -10,6 +11,7 @@ import {
 	getUsername,
 	verifyNonce,
 } from "../../util/riotSignOn";
+import { guildOnly } from "../../util/errors/guildOnly";
 
 const nonces = new BunCache();
 
@@ -28,19 +30,18 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 };
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
-	if (!interaction.inGuild()) {
-		return interaction.reply({
-			content: "-# This command only works in servers.",
-			ephemeral: true,
-		});
-	}
+	const guildCommand = guildOnly(interaction);
+	if (guildCommand) return await interaction.reply({embeds: [guildCommand], flags: MessageFlags.Ephemeral})
+
+		const embed = new EmbedBuilder()
 
 	const link = interaction.options.getString("copied-link", false);
 	if (!link) {
 		const auth = getAuth();
 		nonces.put(interaction.user.id, auth.nonce, 125_000); // grace period for latency or anything else
+			embed.setDescription(`This expires <t:${Math.floor(Date.now() / 1000) + 120}:R>\nYou will have to retry if you can't complete it in time.\n\n1. Open the [login page](${auth.url}).\n2. Login to your Riot Account.\n3. Copy the link you were sent to. **It will look like an error page but that is ok!**\n4. Rerun this command, and set the copied-link option to the link you copied.\n5. Done!\n\n-# We do ***NOT*** store any data. \n-# You will need to redo this if you change your Riot username or tag.`);
 		return await interaction.reply({
-			content: `This expires <t:${Math.floor(Date.now() / 1000) + 120}:R>. You will have to retry if you can't complete it in time.\n\n1. Open the [login page](${auth.url}).\n2. Login to your Riot Account.\n3. Copy the link you were sent to. **It will look like an error page but that is ok!**\n4. Rerun this command, and set the copied-link option to the link you copied.\n5. Done!\n\nWe do ***NOT*** store any data. You will need to rerun this if you change your Riot username or tag.`,
+			embeds: [embed],
 			flags: MessageFlags.Ephemeral,
 		});
 	}
@@ -50,23 +51,29 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	try {
 		code = new URL(link).searchParams.get("code");
 	} catch (_e) {
+		embed  .setDescription("Something went wrong, did you paste the right link?")
+  .setColor("#800000");
 		return await interaction.reply({
-			content: "Something went wrong, did you paste the right link?",
+			embeds: [embed],
 			flags: MessageFlags.Ephemeral,
 		});
 	}
 
-	if (!code)
+	if (!code) {
+		embed  .setDescription("Something went wrong, did you paste the right link?")
+  .setColor("#800000");
 		return await interaction.reply({
-			content: "Something went wrong, did you paste the right link?",
+			embeds: [embed],
 			flags: MessageFlags.Ephemeral,
 		});
+	}
 
 	const expectedNonce = nonces.get(interaction.user.id);
 	if (!expectedNonce) {
+		embed  .setDescription("No pending login found.\nRun this command again without the link option first.")
+  .setColor("#800000");
 		return await interaction.reply({
-			content:
-				"No pending login found. Run this command again without the link option first.",
+			embeds: [embed],
 			flags: MessageFlags.Ephemeral,
 		});
 	}
@@ -81,23 +88,30 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 		const member = interaction.guild?.members.cache.get(interaction.user.id);
 		if (!member) {
+			embed  .setDescription("Couldn't find you in this server to rename.")
+  .setColor("#800000");
 			return await interaction.editReply({
-				content: "Couldn't find you in this server to rename.",
+				embeds: [embed],
 			});
 		}
 
 		if (!member.manageable) {
+			embed  .setDescription("I can't change your nickname!\n Check my role position or permissions, or you may be the server owner.")
+  .setColor("#800000");
 			return await interaction.editReply({
-				content:
-					"I can't change your nickname!\n Check my role position/permissions, or you may be the server owner.",
+				embeds: [embed],
 			});
 		}
 
 		await member.setNickname(riotTag, "Linked to Riot Account");
-		await interaction.editReply({ content: `Nickname set to \`${riotTag}\`.` });
+		embed  .setDescription(`Nickname set to \`${riotTag}\`.`)
+  .setColor("#800000");
+		await interaction.editReply({ embeds: [embed],});
 	} catch (err) {
+		embed  .setDescription(`Failed to link account: ${(err as Error).message}`)
+  .setColor("#800000");
 		await interaction.editReply({
-			content: `Failed to link account: ${(err as Error).message}`,
+			embeds: [embed],
 		});
 	} finally {
 		nonces.delete(interaction.user.id);
