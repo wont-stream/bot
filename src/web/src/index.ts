@@ -20,7 +20,7 @@ interface BotStats {
 const $ = <T extends HTMLElement>(id: string) =>
 	document.getElementById(id) as T;
 
-function avatarUrl(user: ClientUser): string {
+function _avatarUrl(user: ClientUser): string {
 	if (user.avatar) {
 		const ext = user.avatar.startsWith("a_") ? "gif" : "png";
 		return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
@@ -35,18 +35,9 @@ function _setStatus(state: "online" | "offline") {
 	el.textContent = state === "online" ? "Online" : "Offline";
 }
 
-function renderDetails(user: ClientUser, stats: BotStats) {
-	const rows: [string, string][] = [
-		["Uptime", `${stats.uptime}%`],
-		["ID", user.id],
-		["Username", user.username],
-	];
-	if (user.createdTimestamp) {
-		rows.push([
-			"Created",
-			new Date(user.createdTimestamp).toLocaleDateString(),
-		]);
-	}
+function renderDetails(stats: BotStats) {
+	const rows: [string, string][] = [["Uptime", `${stats.uptime}%`]];
+
 	const dl = $("details");
 	dl.replaceChildren(
 		...rows.flatMap(([label, value]) => {
@@ -83,16 +74,9 @@ function renderStats(stats: BotStats) {
 }
 
 async function init() {
-	const user = await api<ClientUser>("/api/user");
 	const stats = await api<BotStats>("/api/stats");
 
-	const name = user.globalName ?? user.username;
-	document.title = name;
-	$("name").textContent = name;
-	const img = $<HTMLImageElement>("avatar");
-	img.src = avatarUrl(user);
-	img.alt = `${name} avatar`;
-	renderDetails(user, stats);
+	renderDetails(stats);
 	renderStats(stats);
 }
 
