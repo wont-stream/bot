@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	EmbedBuilder,
 	MessageFlags,
 	type SlashCommandBuilder,
 } from "discord.js";
@@ -10,21 +11,28 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 	);
 };
 export const execute = async (interaction: ChatInputCommandInteraction) => {
+	
+	const embed = new EmbedBuilder()
+	.setDescription("🏓 Pinging...")
+
+	
 	const start = Date.now();
 
 	await interaction.reply({
-		content: "🏓 Pinging...",
+		embeds: [embed],
 		flags: MessageFlags.Ephemeral,
 	});
 
 	const latency = Date.now() - start;
 
-	await interaction.editReply({
-		content: [
+	embed.setDescription([
 			"🏓 **Pong!**",
 			"",
 			`**API:** ${latency}ms`,
 			`**WebSocket:** ${interaction.client.ws.ping}ms`,
-		].join("\n"),
+		].join("\n"))
+
+	await interaction.editReply({
+		embeds: [embed],
 	});
 };
