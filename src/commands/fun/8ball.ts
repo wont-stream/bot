@@ -1,6 +1,7 @@
-import type {
-	ChatInputCommandInteraction,
-	SlashCommandBuilder,
+import {
+	EmbedBuilder,
+	type ChatInputCommandInteraction,
+	type SlashCommandBuilder,
 } from "discord.js";
 import { getResp } from "../../util/8ball";
 
@@ -22,7 +23,14 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const question = interaction.options.getString("question", true);
 	const response = getResp(question);
 
+	const embed = new EmbedBuilder()
+		.setAuthor({
+			name: "The results are in 👀",
+		})
+		.setDescription(`🎱 **${question}**\n\n🔮 **${response}**`)
+		.setTimestamp();
+
 	return await interaction.reply({
-		content: `🎱 **${question}**\n\n> **${response}**`,
+		embeds: [embed]
 	});
 };
