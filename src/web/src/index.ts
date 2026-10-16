@@ -37,9 +37,9 @@ function setStatus(state: "online" | "offline") {
 
 function renderDetails(user: ClientUser, stats: BotStats) {
 	const rows: [string, string][] = [
-		["Uptime", stats.uptime],
+		["Uptime", `${stats.uptime}%`],
 		["ID", user.id],
-		["Username", `${user.username}%`],
+		["Username", user.username],
 	];
 	if (user.createdTimestamp) {
 		rows.push([
