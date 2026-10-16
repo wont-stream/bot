@@ -5,6 +5,6 @@ const embed = new EmbedBuilder()
 
 export const guildOnly = (interaction: ChatInputCommandInteraction) => {
     if (!interaction.inGuild()) {
-        return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral })
+        return embed
     }
 }
