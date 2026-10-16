@@ -37,7 +37,7 @@ function renderStats(stats: BotStats) {
 	const items: [string, string][] = [
 		["Servers", stats.guilds.toLocaleString()],
 		["Users", stats.users.toLocaleString()],
-		["Commands", stats.subcommands.toLocaleString()],
+		["Commands", stats.commands.toLocaleString()],
 	];
 	$("stats").replaceChildren(
 		...items.map(([label, value]) => {
