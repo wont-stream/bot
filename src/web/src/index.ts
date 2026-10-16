@@ -29,7 +29,7 @@ function avatarUrl(user: ClientUser): string {
 	return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
 }
 
-function setStatus(state: "online" | "offline") {
+function _setStatus(state: "online" | "offline") {
 	const el = $("status");
 	el.dataset.state = state;
 	el.textContent = state === "online" ? "Online" : "Offline";
@@ -83,17 +83,17 @@ function renderStats(stats: BotStats) {
 }
 
 async function init() {
-		const user = await api<ClientUser>("/api/user");
-		const stats = await api<BotStats>("/api/stats");
+	const user = await api<ClientUser>("/api/user");
+	const stats = await api<BotStats>("/api/stats");
 
-		const name = user.globalName ?? user.username;
-		document.title = name;
-		$("name").textContent = name;
-		const img = $<HTMLImageElement>("avatar");
-		img.src = avatarUrl(user);
-		img.alt = `${name} avatar`;
-		renderDetails(user, stats);
-		renderStats(stats);
+	const name = user.globalName ?? user.username;
+	document.title = name;
+	$("name").textContent = name;
+	const img = $<HTMLImageElement>("avatar");
+	img.src = avatarUrl(user);
+	img.alt = `${name} avatar`;
+	renderDetails(user, stats);
+	renderStats(stats);
 }
 
 init();
