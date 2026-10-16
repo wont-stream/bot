@@ -65,7 +65,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		.setFooter({
 			text: "Powered by TimezoneDB",
 			iconURL:
-				"https://wsrv.nl/?url=https://timezone.creations.works/favicon.ico&output=webp",
+				"https://heliopolis.live/atums.png",
 		})
 		.setTimestamp();
 
