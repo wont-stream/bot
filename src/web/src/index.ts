@@ -18,11 +18,8 @@ interface BotStats {
 const $ = <T extends HTMLElement>(id: string) =>
 	document.getElementById(id) as T;
 
-
 function renderDetails(stats: BotStats) {
-	const rows: [string, string][] = [
-		["Uptime", `${stats.uptime}%`],
-	];
+	const rows: [string, string][] = [["Uptime", `${stats.uptime}%`]];
 
 	const dl = $("details");
 	dl.replaceChildren(
