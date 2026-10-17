@@ -8,6 +8,8 @@ import {
 	type ShardingManager,
 } from "discord.js";
 import html from "./src/index.html";
+import terms from "./src/terms.html";
+import privacy from "./src/privacy.html";
 
 type CommandOption = { type: number; options?: { type: number }[] };
 
@@ -157,6 +159,8 @@ const getStats = async (): Promise<Stats> => {
 const server = Bun.serve({
 	routes: {
 		"/": html,
+		"/terms": terms,
+		"/privacy": privacy,
 		"/api/stats": async () => {
 			try {
 				return Response.json(await getStats());
