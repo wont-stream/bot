@@ -8,8 +8,8 @@ import {
 	type ShardingManager,
 } from "discord.js";
 import html from "./src/index.html";
-import terms from "./src/terms.html";
 import privacy from "./src/privacy.html";
+import terms from "./src/terms.html";
 
 type CommandOption = { type: number; options?: { type: number }[] };
 
