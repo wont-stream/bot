@@ -114,8 +114,10 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 		const riotTag = getUsername(id_token);
 
-		const member = await interaction.guild?.members.fetch({user: interaction.user})
-		
+		const member = await interaction.guild?.members.fetch({
+			user: interaction.user,
+		});
+
 		if (!member) {
 			embed
 				.setDescription("Couldn't find you in this server to rename.")

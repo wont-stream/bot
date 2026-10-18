@@ -36,7 +36,8 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const first = interaction.options.getUser("user1", true);
-	const second = interaction.options.getUser("user2", false) ?? interaction.user;
+	const second =
+		interaction.options.getUser("user2", false) ?? interaction.user;
 
 	// Same result for both orders. Same pair always gives the same percent.
 	const percent =

@@ -61,7 +61,8 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const total = rolls.reduce((a, b) => a + b, 0) + modifier;
 
 	const lines = [`🎲 **${input}**`, "", `**Rolls:** ${rolls.join(", ")}`];
-	if (modifier) lines.push(`**Modifier:** ${modifier > 0 ? "+" : ""}${modifier}`);
+	if (modifier)
+		lines.push(`**Modifier:** ${modifier > 0 ? "+" : ""}${modifier}`);
 	lines.push(`**Total:** ${total}`);
 
 	const embed = new EmbedBuilder()

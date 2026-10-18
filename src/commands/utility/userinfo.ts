@@ -7,7 +7,8 @@ import {
 	time,
 } from "discord.js";
 
-const formatBadge = (name: string) => name.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+const formatBadge = (name: string) =>
+	name.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>

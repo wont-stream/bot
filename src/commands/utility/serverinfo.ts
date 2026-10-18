@@ -15,7 +15,9 @@ const notInServer = new EmbedBuilder().setDescription(
 
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
-		cmd.setName("serverinfo").setDescription("Show information about this server."),
+		cmd
+			.setName("serverinfo")
+			.setDescription("Show information about this server."),
 	);
 };
 
@@ -39,8 +41,16 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		.setThumbnail(guild.iconURL({ size: 512 }))
 		.addFields(
 			{ name: "Owner", value: userMention(guild.ownerId), inline: true },
-			{ name: "Members", value: guild.memberCount.toLocaleString(), inline: true },
-			{ name: "Channels", value: String(guild.channels.cache.size), inline: true },
+			{
+				name: "Members",
+				value: guild.memberCount.toLocaleString(),
+				inline: true,
+			},
+			{
+				name: "Channels",
+				value: String(guild.channels.cache.size),
+				inline: true,
+			},
 			{ name: "Roles", value: String(guild.roles.cache.size), inline: true },
 			{
 				name: "Boosts",

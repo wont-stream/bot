@@ -24,7 +24,9 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 			.addStringOption((option) =>
 				option
 					.setName("options")
-					.setDescription("Options separated by commas, for example: pizza, tacos, sushi")
+					.setDescription(
+						"Options separated by commas, for example: pizza, tacos, sushi",
+					)
 					.setMaxLength(500)
 					.setRequired(true),
 			),
