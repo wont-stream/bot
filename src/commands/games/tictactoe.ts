@@ -1,4 +1,4 @@
-import { RockPaperScissors } from "@voctal/gamecord";
+import { TicTacToe } from "@voctal/gamecord";
 import type {
 	ChatInputCommandInteraction,
 	SlashCommandBuilder,
@@ -21,7 +21,7 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const user = interaction.options.getUser("user", true);
 
-	const game = new RockPaperScissors(interaction, {
+	const game = new TicTacToe(interaction, {
 		versus: {
 			opponent: user,
 		},
