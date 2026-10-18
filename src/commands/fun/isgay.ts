@@ -8,7 +8,7 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
 		cmd
 			.setName("isgay")
-			.setDescription("Flip a coin.")
+			.setDescription("Determine if a user is gay.")
 			.addUserOption((option) =>
 				option
 					.setName("user")
