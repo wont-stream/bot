@@ -50,7 +50,9 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 	const embed = new EmbedBuilder()
 		.setAuthor({ name: "I choose..." })
-		.setDescription([`🤔 **${choice}**`,"","",`-# From: ${options.join(", ")}`].join("\n"))
+		.setDescription(
+			[`🤔 **${choice}**`, "", "", `-# From: ${options.join(", ")}`].join("\n"),
+		)
 		.setTimestamp();
 
 	return await interaction.reply({ embeds: [embed] });

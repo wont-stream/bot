@@ -19,7 +19,7 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const guildCommand = guildOnly(interaction);
-	const { guild } = interaction
+	const { guild } = interaction;
 	if (guildCommand || !guild)
 		return await interaction.reply({
 			embeds: [guildCommand || new EmbedBuilder()],
