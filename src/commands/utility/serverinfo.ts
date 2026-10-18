@@ -9,10 +9,6 @@ import {
 } from "discord.js";
 import { guildOnly } from "../../util/errors/guildOnly";
 
-const notInServer = new EmbedBuilder().setDescription(
-	"-# I MUST be in this server to show its info.",
-);
-
 export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
 		cmd
@@ -23,16 +19,10 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const guildCommand = guildOnly(interaction);
-	if (guildCommand)
+	const { guild } = interaction
+	if (guildCommand || !guild)
 		return await interaction.reply({
-			embeds: [guildCommand],
-			flags: MessageFlags.Ephemeral,
-		});
-
-	const guild = interaction.guild;
-	if (!guild)
-		return await interaction.reply({
-			embeds: [notInServer],
+			embeds: [guildCommand || new EmbedBuilder()],
 			flags: MessageFlags.Ephemeral,
 		});
 

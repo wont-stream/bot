@@ -50,7 +50,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			{ name: "Bot", value: user.bot ? "Yes" : "No", inline: true },
 			{
 				name: "Account Created",
-				value: `${time(user.createdAt, TimestampStyles.LongDateTime)}\n${time(user.createdAt, TimestampStyles.RelativeTime)}`,
+				value: `${time(user.createdAt, TimestampStyles.FullDateShortTime)}\n${time(user.createdAt, TimestampStyles.RelativeTime)}`,
 			},
 		);
 
@@ -58,7 +58,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		embed.addFields(
 			{
 				name: "Joined Server",
-				value: `${time(member.joinedAt, TimestampStyles.LongDateTime)}\n${time(member.joinedAt, TimestampStyles.RelativeTime)}`,
+				value: `${time(member.joinedAt, TimestampStyles.FullDateShortTime)}\n${time(member.joinedAt, TimestampStyles.RelativeTime)}`,
 			},
 			{
 				name: "Roles",
