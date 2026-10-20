@@ -1,6 +1,5 @@
 import { echo } from "@atums/echo";
 import { Glob } from "bun";
-import type { Client } from "discord.js";
 
 const glob = new Glob("**/*.ts");
 
@@ -9,7 +8,7 @@ export const execute = async (client: CommandClient) => {
 		if (file === "index.ts") continue;
 
 		const { execute } = (await import(`./${file}`)) as {
-			execute: (client: Client) => Promise<void>;
+			execute: (client: CommandClient) => Promise<void>;
 		};
 
 		await execute(client);
