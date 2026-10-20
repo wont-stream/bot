@@ -37,8 +37,6 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			flags: MessageFlags.Ephemeral,
 		});
 
-	await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-
 	const embed = new EmbedBuilder();
 
 	const link = interaction.options.getString("copied-link", false);
@@ -107,6 +105,8 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 			flags: MessageFlags.Ephemeral,
 		});
 	}
+
+	await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 	try {
 		const { id_token } = await getToken(code);
