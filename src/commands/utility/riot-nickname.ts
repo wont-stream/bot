@@ -19,7 +19,7 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 	data.addSubcommand((cmd) =>
 		cmd
 			.setName("riot-nickname")
-			.setDescription("Set your nickname to your riot #")
+			.setDescription("Set your nickname to your Riot ID.")
 			.addStringOption((option) =>
 				option
 					.setName("copied-link")
