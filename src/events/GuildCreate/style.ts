@@ -1,7 +1,5 @@
 import { echo } from "@atums/echo";
-import { Events } from "discord.js";
-
-import { Routes } from "discord.js";
+import { Events, Routes } from "discord.js";
 
 interface DisplayNameStyles {
     font_id: number;
@@ -9,7 +7,7 @@ interface DisplayNameStyles {
     colors: number[];
 }
 
-const applyStyle = async (client: CommandClient, guildId: string): Promise<DisplayNameStyles | null> {
+const applyStyle = async (client: CommandClient, guildId: string): Promise<DisplayNameStyles | null> => {
     const body = {
         "display_name_font_id": 10,
         "display_name_effect_id": 3,
