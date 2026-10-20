@@ -41,7 +41,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 		embed.setTitle(null).setDescription("Done!");
 	}
 
-	await interaction.reply({
+	await interaction.followUp({
 		embeds: [embed],
 		flags: MessageFlags.Ephemeral,
 	});
