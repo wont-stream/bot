@@ -22,11 +22,6 @@ const applyStyle = async (client: CommandClient, guildId: string): Promise<Displ
 }
 
 export const execute = async (client: CommandClient) => {
-    client.on(Events.ClientReady, async () => {
-        client.guilds.cache.forEach(async (guild) => {
-            console.log(await applyStyle(client, guild.id))
-        })
-    })
     client.on(Events.GuildCreate, async (guild) => {
         try { await applyStyle(client, guild.id) } catch (e) {
             echo.custom("BOT", "Name Style Error", e);
