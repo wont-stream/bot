@@ -36,9 +36,10 @@ const fromApi = async (): Promise<string | null> => {
 
 const fromLocalRepo = async (): Promise<string | null> => {
 	try {
-		const output = await Bun.$`git log --pretty=format:%s -n ${MAX_LOCAL_COMMITS}`
-			.quiet()
-			.text();
+		const output =
+			await Bun.$`git log --pretty=format:%s -n ${MAX_LOCAL_COMMITS}`
+				.quiet()
+				.text();
 
 		const messages = output
 			.split("\n")
@@ -74,7 +75,9 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 	const { message, source } = await getCommitMessage();
 
 	const embed = new EmbedBuilder()
-		.setDescription(`\`\`\`\ngit commit -m "${message.replaceAll('"', "'")}"\n\`\`\``)
+		.setDescription(
+			`\`\`\`\ngit commit -m "${message.replaceAll('"', "'")}"\n\`\`\``,
+		)
 		.setFooter({ text: `Source: ${source}` });
 
 	return await interaction.editReply({ embeds: [embed] });

@@ -86,7 +86,8 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
 
 	if (question) embed.setDescription(`**${question}**`);
 	if (decision.image) embed.setImage(decision.image);
-	if (decision.fallback) embed.setFooter({ text: "Offline mode: local answer" });
+	if (decision.fallback)
+		embed.setFooter({ text: "Offline mode: local answer" });
 
 	return await interaction.editReply({ embeds: [embed] });
 };
