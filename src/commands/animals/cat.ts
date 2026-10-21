@@ -36,7 +36,9 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	await interaction.deferReply();
 
-	const image = getImageUrl(await fetchJson<CataasCat>(`${ORIGIN}/cat?json=true`));
+	const image = getImageUrl(
+		await fetchJson<CataasCat>(`${ORIGIN}/cat?json=true`),
+	);
 	if (!image) return await interaction.editReply({ embeds: [apiUnavailable] });
 
 	const embed = new EmbedBuilder()

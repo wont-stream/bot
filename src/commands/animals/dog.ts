@@ -3,11 +3,7 @@ import {
 	EmbedBuilder,
 	type SlashCommandBuilder,
 } from "discord.js";
-import {
-	apiUnavailable,
-	fetchJson,
-	isHttpsUrl,
-} from "../../util/fetchJson";
+import { apiUnavailable, fetchJson, isHttpsUrl } from "../../util/fetchJson";
 
 interface Dog {
 	image: string;

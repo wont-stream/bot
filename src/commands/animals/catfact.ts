@@ -14,7 +14,9 @@ export const addSubcommand = (data: SlashCommandBuilder) => {
 export const execute = async (interaction: ChatInputCommandInteraction) => {
 	await interaction.deferReply();
 
-	const data = await fetchJson<{ fact?: unknown }>("https://catfact.ninja/fact");
+	const data = await fetchJson<{ fact?: unknown }>(
+		"https://catfact.ninja/fact",
+	);
 	const fact = typeof data?.fact === "string" ? data.fact.trim() : "";
 	if (!fact) return await interaction.editReply({ embeds: [apiUnavailable] });
 
