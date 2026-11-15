@@ -8,7 +8,7 @@ const sharding = veyro.sharding({ token: process.env.DISCORD_TOKEN });
 const manager = new ShardingManager("./src/bot.ts", sharding);
 
 veyro.cluster(manager);
-manager.spawn(sharding.spawn);
+//manager.spawn(sharding.spawn);
 
 if (process.env.TOPGG_TOKEN) {
 	const poster = AutoPoster(process.env.TOPGG_TOKEN, manager);
