@@ -7,10 +7,12 @@ import {
 	GatewayIntentBits,
 	type SlashCommandBuilder,
 } from "discord.js";
+import veyro from "../veyro.cjs";
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
 }) as CommandClient;
+veyro.discord(client);
 client.commands = new Collection();
 
 const glob = new Glob("**/index.ts");
